@@ -43,11 +43,20 @@ BUG_DB = [
      "stages":[{"stage":"Adult","flies":["Beetle","Ant"],"size":"#12–18"}]}
 ]
 
+from datetime import datetime
+import pytz
+
 def get_time_of_day():
-    hour = datetime.now().hour
-    if hour < 11: return "morning"
-    elif hour < 17: return "afternoon"
-    else: return "evening"
+    tz = pytz.timezone("America/New_York")  # change if needed
+    local_time = datetime.now(tz)
+    hour = local_time.hour
+
+    if hour < 11:
+        return "morning"
+    elif hour < 17:
+        return "afternoon"
+    else:
+        return "evening"
 
 def score_bug(temp, bug):
     center = (bug["temp_min"] + bug["temp_max"]) / 2
